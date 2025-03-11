@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(libraryRouter)
 
 // listen for incoming requests
-const port = 5555
-app.listen(port, () => {
-    console.log(`Server listening on port ${port}`)
+const PORT = process.env.PORT
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`)
 })
