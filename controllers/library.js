@@ -1,9 +1,17 @@
 import { LibraryModel } from "../models/library.js";
+import { libraryValidator } from "../validators/library.js";
 
 // Adding a book
 export const addBook = async (req, res) => {
   try {
-    const newBook = new LibraryModel(req.body);
+
+    const { error, value } = libraryValidator.validate(req.body, {abortEarly: false});
+
+    if (error) {
+      return res.status(422).json(error);
+    }
+
+    const newBook = new LibraryModel(value);
     await newBook.save();
     res.status(201).json(newBook);
   } catch (error) {
@@ -35,14 +43,14 @@ export const updateBook = async (req, res) => {
 };
 
 // Deleting Book Details
-export const deleteBook = async (req,res) => {
-    const deletedBook = await LibraryModel.findByIdAndDelete(
-        req.params.id,
-        req.body,
+export const deleteBook = async (req, res) => {
+  const deletedBook = await LibraryModel.findByIdAndDelete(
+    req.params.id,
+    req.body,
 
-        {new:true, runValidators: true}
-    );
-    res.json({delete: deletedBook});
+    { new: true, runValidators: true }
+  );
+  res.json({ delete: deletedBook });
 };
 
 
