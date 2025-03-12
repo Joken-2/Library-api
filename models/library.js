@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { type } from "os";
 
 const librarySchema = new Schema({
     title: {
@@ -7,24 +8,28 @@ const librarySchema = new Schema({
         unique: true
     },
     author: {
-        type:String, 
+        type: String,
         required: true
     },
     isbn: {
         type: Number,
-        required:true
+        required: true
     },
 
-    numberOfPage:{
+    numberOfPages: {
         type: Number,
         required: true
     },
-    journal:{
-        type:String,
-        required:true
+    category: {
+        type: String,
+        required: true
     },
     yearOfPublication: {
         type: Date,
+        required: true
+    },
+    image: {
+        type: String,
         required: true
     }
 });
