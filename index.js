@@ -1,58 +1,29 @@
-<<<<<<< HEAD
-import express from "express";
-import productRouter from "./routes/products.js";
-import mongoose from 'mongoose'
-
-//make db connection
-await mongoose.connect(process.env.MONGO_URI)
-
-
-// create an express app
-const app = express();
-
-//Use global middleware
-app.use(express.json());
-
-//Use routes
-app.use(productRouter);
-
-
-//Listen to incoming request
-app.listen(3000, () =>{
-    console.log(`server is listening on port 3000`);
-
 import express from 'express';
 import libraryRouter from './routes/library.js';
-//  
 import mongoose from 'mongoose';
+import cors from 'cors'
 
-// make database connection
 
+// make the DB connection
 
 await mongoose.connect(process.env.MONGO_URI).then(
-    console.log("The database is connected")
-)
+    console.log("The DB is connected")
+);
 
-// const connectionString = process.env.MONGO_URL
+// create an express app.
+const app = express();
 
-// mongoose.connect(connectionString).then(() => {
-//     console.log('databsae connected')
-// }).catch((error) => {
-//     console.log('error')
-// })
+app.use(cors());
 
-// create an express app
-const app = express()
-
-// use globle middlewares
+// use global middlewares
 app.use(express.json());
 
-// USe route
-app.use(libraryRouter)
+// Use route
+app.use(libraryRouter);
 
 // listen for incoming requests
-const PORT = process.env.PORT
-app.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`)
->>>>>>> origin
-})
+const port = process.env.PORT || 5557;
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+  });
+
