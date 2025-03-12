@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { type } from "os";
+
 
 const librarySchema = new Schema({
     title: {
@@ -11,7 +11,7 @@ const librarySchema = new Schema({
         type: String,
         required: true
     },
-    isbn: {
+    ISBN: {
         type: Number,
         required: true
     },
@@ -26,6 +26,10 @@ const librarySchema = new Schema({
     },
     yearOfPublication: {
         type: Date,
+        required: true
+    },
+    bookDescription: {
+        type: String,
         required: true
     },
     image: {

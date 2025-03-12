@@ -6,13 +6,14 @@ import {
   getBooks,
   updateBook,
 } from "../controllers/library.js";
+import { remoteUpload } from "../middlewares/upload.js";
 
 // Create library router
-const libraryRouter = Router();
-
+// const libraryRouter = Router();
+const libraryRouter = Router()
 
 // Define Route
-libraryRouter.post("/library", addBook);
+libraryRouter.post("/library", remoteUpload.single('image'), addBook);
 
 libraryRouter.get("/library/:id", getBook);
 
