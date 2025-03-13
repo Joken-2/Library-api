@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import normalize from 'normalize-mongoose';
 
 
 const librarySchema = new Schema({
@@ -37,6 +38,9 @@ const librarySchema = new Schema({
         required: true
     }
 });
+
+
+librarySchema.plugin(normalize);
 
 
 export const LibraryModel = model('library', librarySchema)
