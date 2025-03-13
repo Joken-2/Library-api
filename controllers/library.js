@@ -4,13 +4,13 @@ import { libraryValidator } from "../validators/library.js";
 // Adding a book
 export const addBook = async (req, res) => {
   try {
-
     const { error, value } = libraryValidator.validate(
       {
         ...req.body,
-        image: req.file.filename,
-      }, 
-      {abortEarly: false});
+        image: req.file?.filename,
+      },
+      { abortEarly: false }
+    );
 
     if (error) {
       return res.status(422).json(error);
@@ -25,9 +25,20 @@ export const addBook = async (req, res) => {
 };
 
 // Read / get all books
-export const getBooks = async (req, res) => {
-  const allBooks = await LibraryModel.find({});
-  res.status(200).json({ books: allBooks });
+export const getBooks = async (req, res, next) => {
+  try {
+    const {filter = "{}", sort = "{}"} = req.query;
+
+    // fetch books from database
+    const result = await LibraryModel
+    .find(JSON.parse(filter))
+    .sort(JSON.parse(sort));
+
+    // return response
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
 };
 
 // Read / get a book by ID
@@ -57,5 +68,3 @@ export const deleteBook = async (req, res) => {
   );
   res.json({ delete: deletedBook });
 };
-
-
